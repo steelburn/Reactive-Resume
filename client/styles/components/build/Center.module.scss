@@ -1,0 +1,16 @@
+.center {
+  @apply flex flex-grow pt-12 lg:pt-16 mx-0;
+  @apply transition-[margin-left,margin-right] duration-200;
+}
+
+.pushLeft {
+  @apply xl:ml-[20vw];
+}
+
+.pushRight {
+  @apply xl:mr-[20vw];
+}
+
+.wrapper {
+  @apply w-full h-full #{!important};
+}

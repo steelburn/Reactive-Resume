@@ -1,0 +1,11 @@
+.container {
+  @apply flex items-center justify-between mb-4;
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  button {
+    @apply transition opacity-75 hover:opacity-100;
+  }
+}

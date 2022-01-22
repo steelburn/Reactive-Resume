@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    container_name: database
+    ports:
+      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+    env_file:
+      - .env
+    volumes:
+      - ./scripts/database/initialize.sql:/docker-entrypoint-initdb.d/initialize.sql

@@ -1,0 +1,36 @@
+.resume {
+  @apply grid gap-2;
+
+  .preview {
+    aspect-ratio: 1 / 1.41;
+
+    @apply relative bg-neutral-100 dark:bg-neutral-800 rounded-sm cursor-pointer transition-opacity hover:opacity-80;
+  }
+
+  footer {
+    @apply flex items-center justify-between overflow-hidden;
+
+    .meta {
+      flex: 4;
+      @apply flex flex-col overflow-hidden;
+
+      p {
+        @apply whitespace-nowrap overflow-hidden text-ellipsis;
+
+        &:first-child {
+          @apply text-sm font-semibold leading-relaxed;
+        }
+
+        &:last-child {
+          @apply text-xs opacity-50 leading-relaxed;
+        }
+      }
+    }
+
+    .menu {
+      flex: 1;
+
+      @apply w-full h-full rounded text-lg cursor-pointer;
+    }
+  }
+}

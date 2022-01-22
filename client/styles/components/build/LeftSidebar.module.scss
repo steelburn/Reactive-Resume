@@ -1,0 +1,31 @@
+.container {
+  @apply w-[95vw] md:w-[70vw] lg:w-[50vw] xl:w-[30vw] 2xl:w-[25vw] h-screen;
+  @apply relative flex bg-neutral-50 dark:bg-neutral-900;
+  @apply border-r-2 border-neutral-50/10;
+
+  nav {
+    @apply absolute left-0 inset-y-0;
+    @apply w-12 md:w-16 py-2 md:px-2;
+    @apply shadow bg-neutral-100 dark:bg-neutral-800;
+    @apply flex flex-col items-center justify-between;
+
+    hr {
+      @apply w-full;
+    }
+
+    > div {
+      @apply grid gap-2;
+    }
+
+    .sections {
+      svg {
+        @apply transition-opacity opacity-75 hover:opacity-100;
+      }
+    }
+  }
+
+  main {
+    @apply overflow-y-scroll p-4;
+    @apply absolute left-12 md:left-16 right-0 inset-y-0;
+  }
+}

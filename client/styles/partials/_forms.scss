@@ -1,0 +1,17 @@
+.form-control {
+  @apply flex flex-col;
+
+  span:first-child {
+    @apply block uppercase text-[10px] leading-6 font-semibold tracking-wider cursor-pointer;
+  }
+
+  input {
+    @apply px-4 py-2 rounded transition;
+    @apply bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-50;
+    @apply border border-transparent border-opacity-50 focus:border-neutral-400 dark:focus:border-neutral-600;
+  }
+
+  .error {
+    @apply text-xs pt-2 text-red-600 dark:text-red-400;
+  }
+}

@@ -1,0 +1,21 @@
+.container {
+  @apply grid gap-10 m-6 text-center md:m-8 md:text-left;
+}
+
+.header {
+  @apply flex flex-col items-center gap-8 md:flex-row;
+}
+
+.button-wrapper {
+  @apply flex justify-center gap-4 mt-8 md:justify-start;
+}
+
+.section {
+  h6 {
+    @apply mb-1 text-xs font-bold uppercase tracking-wide;
+  }
+
+  p {
+    @apply text-sm leading-relaxed;
+  }
+}
