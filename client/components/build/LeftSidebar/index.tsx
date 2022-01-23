@@ -7,7 +7,7 @@ import { setSidebarState } from '@/store/build/buildSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import styles from '@/styles/components/build/LeftSidebar.module.scss';
 
-import Profile from './Profile';
+import Basics from './Basics';
 
 const LeftSidebar = () => {
   const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ const LeftSidebar = () => {
         </nav>
 
         <main>
-          <Profile />
+          <Basics />
         </main>
       </div>
     </SwipeableDrawer>

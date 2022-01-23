@@ -9,13 +9,9 @@ const Artboard = () => {
 
   if (isEmpty(resume)) return null;
 
-  const { data } = resume;
-  const { profile } = data;
-
   return (
     <div className={clsx('reset', styles.artboard)}>
-      <p>First Name: {profile.firstName}</p>
-      <p>Last Name: {profile.lastName}</p>
+      <p>Name: {resume.basics?.name}</p>
     </div>
   );
 };

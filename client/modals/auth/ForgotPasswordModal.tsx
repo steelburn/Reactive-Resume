@@ -24,7 +24,7 @@ const ForgotPasswordModal: React.FC = () => {
   const { open: isOpen } = useAppSelector((state) => state.modal['auth.forgot']);
 
   const { mutate, isLoading } = useMutation<void, ServerError, ForgotPasswordParams>(
-    forgotPassword
+    forgotPassword,
   );
 
   const {

@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['www.gravatar.com', 'images.unsplash.com'],
+    domains: ['localhost', 'www.gravatar.com'],
   },
 };
-
-module.exports = nextConfig;

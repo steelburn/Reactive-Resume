@@ -6,21 +6,18 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import Loading from '@/components/Loading';
 import theme from '@/config/theme';
-import useBreakpoint from '@/hooks/useBreakpoint';
+import { SocketProvider } from '@/context/SocketContext';
 import ModalWrapper from '@/modals/index';
 import queryClient from '@/services/react-query';
 import store, { persistor } from '@/store/index';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-  const breakpoint = useBreakpoint();
-
-  console.log(breakpoint);
-
   return (
     <>
       <Head>
@@ -36,23 +33,25 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 
       <ThemeProvider theme={theme}>
         <ReduxProvider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <QueryClientProvider client={queryClient}>
-              <Loading />
+          <SocketProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <QueryClientProvider client={queryClient}>
+                <Loading />
 
-              <Component {...pageProps} />
+                <Component {...pageProps} />
 
-              <ModalWrapper />
-              {/* <ReactQueryDevtools /> */}
-              <Toaster
-                position="bottom-center"
-                toastOptions={{
-                  duration: 4000,
-                  className: 'toast',
-                }}
-              />
-            </QueryClientProvider>
-          </PersistGate>
+                <ModalWrapper />
+                <ReactQueryDevtools />
+                <Toaster
+                  position="bottom-center"
+                  toastOptions={{
+                    duration: 4000,
+                    className: 'toast',
+                  }}
+                />
+              </QueryClientProvider>
+            </PersistGate>
+          </SocketProvider>
         </ReduxProvider>
       </ThemeProvider>
     </>

@@ -16,7 +16,7 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
     private schedulerRegistry: SchedulerRegistry,
     private mailService: MailService,
-    private connection: Connection
+    private connection: Connection,
   ) {}
 
   async findById(id: number): Promise<User> {
@@ -28,7 +28,7 @@ export class UsersService {
 
     throw new HttpException(
       'A user with this username/email does not exist.',
-      HttpStatus.NOT_FOUND
+      HttpStatus.UNAUTHORIZED,
     );
   }
 
@@ -39,7 +39,7 @@ export class UsersService {
       return user;
     }
 
-    throw new HttpException('A user with this email does not exist.', HttpStatus.NOT_FOUND);
+    throw new HttpException('A user with this email does not exist.', HttpStatus.UNAUTHORIZED);
   }
 
   async findByIdentifier(identifier: string): Promise<User> {
@@ -53,7 +53,7 @@ export class UsersService {
 
     throw new HttpException(
       'A user with this username/email does not exist.',
-      HttpStatus.NOT_FOUND
+      HttpStatus.UNAUTHORIZED,
     );
   }
 
@@ -66,7 +66,7 @@ export class UsersService {
 
     throw new HttpException(
       'The reset token provided may be invalid or expired.',
-      HttpStatus.NOT_FOUND
+      HttpStatus.UNAUTHORIZED,
     );
   }
 
@@ -121,11 +121,13 @@ export class UsersService {
 
         throw new HttpException(
           'Please wait at least 30 minutes before resetting your password again.',
-          HttpStatus.TOO_MANY_REQUESTS
+          HttpStatus.TOO_MANY_REQUESTS,
         );
       } finally {
         await queryRunner.release();
       }
-    } catch {}
+    } catch {
+      // pass through
+    }
   }
 }

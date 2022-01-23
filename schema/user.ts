@@ -1,9 +1,8 @@
-import type { Resume } from './Resume';
+import { Resume } from './resume';
 
 export type User = {
   id: number;
-  firstName: string;
-  lastName: string;
+  name: string;
   username: string;
   email: string;
   password: string;

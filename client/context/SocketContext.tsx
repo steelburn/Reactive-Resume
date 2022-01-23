@@ -1,30 +1,53 @@
-import { createContext, useContext, useEffect, useMemo } from 'react';
+import { Resume } from '@reactive-resume/schema';
+import { debounce, isEmpty } from 'lodash';
+import { createContext, useEffect, useMemo, useState } from 'react';
+import { io, Socket } from 'socket.io-client';
 
-import isBrowser from '@/utils/isBrowser';
+import { useAppSelector } from '@/store/hooks';
 
-const SocketContext = createContext<WebSocket | null>(null);
+const DEBOUNCE_WAIT = 5000;
 
-const SockerProvider: React.FC = ({ children }) => {
-  const socket = useMemo(
-    () => (isBrowser ? new WebSocket(process.env.NEXT_PUBLIC_WS_GATEWAY) : null),
-    []
+const SocketContext = createContext<Socket | null>(null);
+
+const SocketProvider: React.FC = ({ children }) => {
+  const [socket, setSocket] = useState<Socket | null>(null);
+
+  const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const resume = useAppSelector((state) => state.resume);
+
+  const debouncedUpdateResume = useMemo(
+    () =>
+      debounce((resume: Partial<Resume>) => {
+        if (socket) {
+          socket.emit('update-resume', resume);
+        }
+      }, DEBOUNCE_WAIT),
+    [socket],
   );
 
   useEffect(() => {
-    return () => socket?.close();
-  }, [socket]);
+    if (!isEmpty(resume)) {
+      debouncedUpdateResume(resume);
+    }
+  }, [debouncedUpdateResume, resume]);
+
+  useEffect(() => {
+    if (accessToken && !socket) {
+      setSocket(
+        io(process.env.NEXT_PUBLIC_SERVER_GATEWAY, {
+          extraHeaders: { Authorization: accessToken },
+        }),
+      );
+    }
+
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, [socket, accessToken]);
 
   return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
 };
 
-const useSocket = (): WebSocket => {
-  const context = useContext(SocketContext);
-
-  if (context === null) {
-    throw new Error('useSocket must be used inside a SocketProvider');
-  }
-
-  return context;
-};
-
-export { SockerProvider, SocketContext, useSocket };
+export { SocketContext, SocketProvider };

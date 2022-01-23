@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setModalState } from '@/store/modal/modalSlice';
 
 type FormData = {
-  firstName: string;
+  name: string;
   lastName: string;
   username: string;
   email: string;
@@ -17,8 +17,7 @@ type FormData = {
 };
 
 const schema = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
+  name: Joi.string().required(),
   username: Joi.string()
     .lowercase()
     .min(3)
@@ -47,11 +46,13 @@ const RegisterModal: React.FC = () => {
     dispatch(setModalState({ modal: 'auth.register', state: { open: false } }));
   };
 
-  const onSubmit = async ({ firstName, lastName, username, email, password }: FormData) => {
+  const onSubmit = async ({ name, username, email, password }: FormData) => {
     try {
-      await registerUser({ firstName, lastName, username, email, password });
+      await registerUser({ name, username, email, password });
       handleClose();
-    } catch {}
+    } catch {
+      // pass through
+    }
   };
 
   const handleLogin = () => {
@@ -76,15 +77,9 @@ const RegisterModal: React.FC = () => {
 
           <form className="grid gap-4 md:grid-cols-2">
             <label className="form-control">
-              <span>First Name</span>
-              <input type="text" {...register('firstName', { required: true })} />
-              {errors.firstName ? <span className="error">{errors.firstName.message}</span> : null}
-            </label>
-
-            <label className="form-control">
-              <span>Last Name</span>
-              <input type="text" {...register('lastName', { required: true })} />
-              {errors.lastName ? <span className="error">{errors.lastName.message}</span> : null}
+              <span>Full Name</span>
+              <input type="text" {...register('name', { required: true })} />
+              {errors.name ? <span className="error">{errors.name.message}</span> : null}
             </label>
 
             <label className="form-control">

@@ -10,7 +10,7 @@ import { Server, Socket } from 'socket.io';
 import { Resume } from './entities/resume.entity';
 import { ResumeService } from './resume.service';
 
-@WebSocketGateway(80)
+@WebSocketGateway({ cors: true })
 export class ResumeGateway {
   @WebSocketServer()
   server: Server;
@@ -27,7 +27,7 @@ export class ResumeGateway {
     return user;
   }
 
-  @SubscribeMessage('message')
+  @SubscribeMessage('update-resume')
   async handleMessage(@MessageBody() data: Resume, @ConnectedSocket() socket: Socket) {
     const user = await this.resumeService.getUserFromSocket(socket);
 

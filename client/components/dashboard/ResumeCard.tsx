@@ -7,6 +7,7 @@ import {
   OpenInNew as OpenInNewIcon,
 } from '@mui/icons-material';
 import { ButtonBase, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Resume } from '@reactive-resume/schema';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -14,7 +15,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 
-import { Resume } from '@/models/Resume';
 import { ServerError } from '@/services/axios';
 import queryClient from '@/services/react-query';
 import {
@@ -38,7 +38,7 @@ const ResumeCard: React.FC<Props> = ({ resume }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
   const duplicateMutation = useMutation<Resume, ServerError, DuplicateResumeParams>(
-    duplicateResume
+    duplicateResume,
   );
 
   const deleteMutation = useMutation<void, ServerError, DeleteResumeParams>(deleteResume);
@@ -61,7 +61,7 @@ const ResumeCard: React.FC<Props> = ({ resume }) => {
     handleClose();
 
     dispatch(
-      setModalState({ modal: 'dashboard.rename-resume', state: { open: true, payload: resume } })
+      setModalState({ modal: 'dashboard.rename-resume', state: { open: true, payload: resume } }),
     );
   };
 
@@ -70,9 +70,7 @@ const ResumeCard: React.FC<Props> = ({ resume }) => {
 
     duplicateMutation.mutate(
       { id: resume.id },
-      {
-        onSuccess: () => queryClient.invalidateQueries('resumes'),
-      }
+      { onSuccess: () => queryClient.invalidateQueries('resumes') },
     );
   };
 
@@ -90,9 +88,7 @@ const ResumeCard: React.FC<Props> = ({ resume }) => {
 
     deleteMutation.mutate(
       { id: resume.id },
-      {
-        onSuccess: () => queryClient.invalidateQueries('resumes'),
-      }
+      { onSuccess: () => queryClient.invalidateQueries('resumes') },
     );
   };
 
@@ -100,7 +96,13 @@ const ResumeCard: React.FC<Props> = ({ resume }) => {
     <section className={styles.resume}>
       <div className={styles.preview} onClick={handleOpen}>
         {resume.image ? (
-          <Image src={resume.image} alt={resume.name} layout="fill" objectFit="cover" priority />
+          <Image
+            src={process.env.NEXT_PUBLIC_SERVER_GATEWAY + resume.image}
+            alt={resume.name}
+            objectFit="cover"
+            layout="fill"
+            priority
+          />
         ) : null}
       </div>
 

@@ -8,7 +8,9 @@
     "dev": "concurrently --kill-others 'npm run *:dev'",
     "client:build": "lerna run --scope @reactive-resume/client --stream build",
     "server:build": "lerna run --scope @reactive-resume/server --stream build",
-    "build": "concurrently --kill-others 'npm run *:build'"
+    "build": "concurrently --kill-others 'npm run *:build'",
+    "format": "prettier --write .",
+    "lint": "eslint --fix ."
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.10.0",

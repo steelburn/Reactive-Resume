@@ -22,7 +22,6 @@
       "@/context/*": ["context/*"],
       "@/hooks/*": ["hooks/*"],
       "@/modals/*": ["modals/*"],
-      "@/models/*": ["models/*"],
       "@/pages/*": ["pages/*"],
       "@/public/*": ["public/*"],
       "@/services/*": ["services/*"],

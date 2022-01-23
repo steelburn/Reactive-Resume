@@ -1,4 +1,5 @@
 import { useMediaQuery } from '@mui/material';
+import { Resume } from '@reactive-resume/schema';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
@@ -7,7 +8,6 @@ import Center from '@/components/build/Center';
 import LeftSidebar from '@/components/build/LeftSidebar';
 import RightSidebar from '@/components/build/RightSidebar';
 import theme from '@/config/theme';
-import { Resume } from '@/models/Resume';
 import { fetchResumeByIdentifier } from '@/services/resume';
 import { setSidebarState } from '@/store/build/buildSlice';
 import { useAppDispatch } from '@/store/hooks';
@@ -51,7 +51,7 @@ const Build: NextPage<Props> = ({ username, slug, resume }) => {
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
       onSuccess: (data) => dispatch(setResume(data)),
-    }
+    },
   );
 
   useEffect(() => {

@@ -32,10 +32,7 @@ export class ResumeService {
         image: sample(covers),
         user,
         basics: {
-          name: {
-            first: user.firstName,
-            last: user.lastName,
-          },
+          name: user.name,
         },
       });
 
@@ -148,8 +145,6 @@ export class ResumeService {
           HttpStatus.BAD_REQUEST,
         );
       }
-
-      console.log(error);
 
       throw new HttpException(
         'Something went wrong. Please try again later, or raise an issue on GitHub if the problem persists.',

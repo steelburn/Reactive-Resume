@@ -1,7 +1,6 @@
+import { Resume } from '@reactive-resume/schema';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { set } from 'lodash';
-
-import { Resume } from '@/models/Resume';
 
 type ResumeState = Resume;
 

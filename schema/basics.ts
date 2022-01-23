@@ -1,7 +1,7 @@
-import { Location, Name, Profile } from './atoms';
+import { Location, Profile } from './atoms';
 
 export type Basics = {
-  name?: Name;
+  name?: string;
   image?: string;
   email?: string;
   phone?: string;

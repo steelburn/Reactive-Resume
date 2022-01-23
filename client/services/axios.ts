@@ -1,4 +1,5 @@
 import _axios, { AxiosError } from 'axios';
+import Router from 'next/router';
 import toast from 'react-hot-toast';
 
 import { logout } from '@/store/auth/authSlice';
@@ -13,11 +14,11 @@ export type ServerError = {
 };
 
 const axios = _axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_GATEWAY,
+  baseURL: process.env.NEXT_PUBLIC_SERVER_GATEWAY,
 });
 
 export const uninterceptedAxios = _axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_GATEWAY,
+  baseURL: process.env.NEXT_PUBLIC_SERVER_GATEWAY,
 });
 
 axios.interceptors.request.use((config) => {
@@ -34,20 +35,19 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    const { isLoggedIn } = store.getState().auth;
-
     const { response } = error;
     const code = error.isAxiosError ? (response?.data as ServerError).statusCode : error.code;
     const message = error.isAxiosError ? (response?.data as ServerError).message : error.message;
 
     toast.error(message);
 
-    if (isLoggedIn && code === 401) {
+    if (code === 401) {
       store.dispatch(logout());
+      Router.push('/');
     }
 
     throw error;
-  }
+  },
 );
 
 export default axios;

@@ -1,6 +1,5 @@
+import { Resume } from '@reactive-resume/schema';
 import { AxiosResponse } from 'axios';
-
-import { Resume } from '@/models/Resume';
 
 import axios from './axios';
 
@@ -43,18 +42,26 @@ export const renameResume = (renameResumeParams: RenameResumeParams) =>
   axios
     .patch<Resume, AxiosResponse<Resume>, RenameResumeParams>(
       `/resume/${renameResumeParams.id}`,
-      renameResumeParams
+      renameResumeParams,
+    )
+    .then((res) => res.data);
+
+export const updateResume = (updateResumeParams: Partial<Resume>) =>
+  axios
+    .patch<Resume, AxiosResponse<Resume>, Partial<Resume>>(
+      `/resume/${updateResumeParams.id}`,
+      updateResumeParams,
     )
     .then((res) => res.data);
 
 export const duplicateResume = (duplicateResumeParams: DuplicateResumeParams) =>
   axios
     .post<Resume, AxiosResponse<Resume>, DuplicateResumeParams>(
-      `/resume/duplicate/${duplicateResumeParams.id}`
+      `/resume/duplicate/${duplicateResumeParams.id}`,
     )
     .then((res) => res.data);
 
 export const deleteResume = (deleteResumeParams: DeleteResumeParams) =>
   axios
-    .delete<void, AxiosResponse<void>, CreateResumeParams>(`/resume/${deleteResumeParams.id}`)
+    .delete<void, AxiosResponse<void>, DeleteResumeParams>(`/resume/${deleteResumeParams.id}`)
     .then((res) => res.data);

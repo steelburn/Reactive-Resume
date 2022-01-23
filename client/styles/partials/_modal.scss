@@ -20,7 +20,7 @@
 
 .ReactModal__Header {
   @apply flex items-center justify-between;
-  @apply w-full mb-4 pb-4 border-b border-opacity-5;
+  @apply w-full mb-4 pb-4 border-b border-white/10;
 
   > div {
     @apply flex gap-2 items-center;
@@ -38,5 +38,5 @@
 
 .ReactModal__Footer {
   @apply flex gap-x-4 items-center justify-end;
-  @apply w-full mt-6 pt-4 border-t border-opacity-5;
+  @apply w-full mt-6 pt-4 border-t border-white/10;
 }

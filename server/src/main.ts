@@ -11,7 +11,7 @@ const bootstrap = async () => {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Middleware
-  app.enableCors({ credentials: true });
+  app.enableCors();
   app.use(cookieParser());
 
   // Pipes

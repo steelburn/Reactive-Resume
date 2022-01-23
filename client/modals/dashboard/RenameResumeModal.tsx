@@ -1,11 +1,11 @@
 import { joiResolver } from '@hookform/resolvers/joi';
+import { Resume } from '@reactive-resume/schema';
 import Joi from 'joi';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
 import BaseModal from '@/components/BaseModal';
-import { Resume } from '@/models/Resume';
 import { ServerError } from '@/services/axios';
 import queryClient from '@/services/react-query';
 import { renameResume, RenameResumeParams } from '@/services/resume';
@@ -29,7 +29,7 @@ const schema = Joi.object({
 const RenameResumeModal: React.FC = () => {
   const dispatch = useAppDispatch();
   const { open: isOpen, payload } = useAppSelector(
-    (state) => state.modal['dashboard.rename-resume']
+    (state) => state.modal['dashboard.rename-resume'],
   ) as ModalState<Resume>;
 
   const { mutate, isLoading } = useMutation<Resume, ServerError, RenameResumeParams>(renameResume);
@@ -54,7 +54,7 @@ const RenameResumeModal: React.FC = () => {
     const slug = name
       ? name
           .toLowerCase()
-          .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+          .replace(/[`~!@#$%^&*()_|+=?;:'",.<>{}[]\\\/]/gi, '')
           .replace(/[ ]/gi, '-')
       : '';
 
@@ -79,7 +79,7 @@ const RenameResumeModal: React.FC = () => {
           queryClient.invalidateQueries('resumes');
           handleClose();
         },
-      }
+      },
     );
   };
 

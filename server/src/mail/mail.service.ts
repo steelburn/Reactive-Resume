@@ -23,7 +23,7 @@ export class MailService {
       },
       {
         from: this.configService.get<string>('mail.from'),
-      }
+      },
     );
   }
 
@@ -31,10 +31,10 @@ export class MailService {
     const url = `http://localhost:3000?modal=auth.reset&resetToken=${resetToken}`;
     const templateSource = fs.readFileSync(
       path.join(__dirname, 'templates/forgot-password.hbs'),
-      'utf-8'
+      'utf-8',
     );
     const template = Handlebars.compile(templateSource);
-    const html = template({ name: user.firstName, url });
+    const html = template({ name: user.name, url });
 
     await this.transporter.sendMail({
       to: user.email,

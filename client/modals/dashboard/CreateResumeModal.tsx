@@ -1,12 +1,12 @@
 import { joiResolver } from '@hookform/resolvers/joi';
+import { FormControlLabel, FormGroup, Switch } from '@mui/material';
+import { Resume } from '@reactive-resume/schema';
 import Joi from 'joi';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
 import BaseModal from '@/components/BaseModal';
-import { FormControlLabel, FormGroup, Switch } from '@mui/material';
-import { Resume } from '@/models/Resume';
 import { ServerError } from '@/services/axios';
 import queryClient from '@/services/react-query';
 import { createResume, CreateResumeParams } from '@/services/resume';
@@ -50,7 +50,7 @@ const CreateResumeModal: React.FC = () => {
     const slug = name
       ? name
           .toLowerCase()
-          .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+          .replace(/[`~!@#$%^&*()_|+=?;:'",.<>{}[]\\\/]/gi, '')
           .replace(/[ ]/gi, '-')
       : '';
 
@@ -65,7 +65,7 @@ const CreateResumeModal: React.FC = () => {
           queryClient.invalidateQueries('resumes');
           handleClose();
         },
-      }
+      },
     );
   };
 

@@ -34,7 +34,7 @@ export class AuthService {
       if (error?.code === PostgresErrorCode.UniqueViolation) {
         throw new HttpException(
           'A user with that username and/or email already exists.',
-          HttpStatus.BAD_REQUEST,
+          HttpStatus.UNAUTHORIZED,
         );
       }
 

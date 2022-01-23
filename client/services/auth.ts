@@ -1,7 +1,7 @@
+import { User } from '@reactive-resume/schema';
 import { AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
 
-import { User } from '@/models/User';
 import { setAccessToken, setUser } from '@/store/auth/authSlice';
 
 import store from '../store';
@@ -13,8 +13,7 @@ export type LoginParams = {
 };
 
 export type RegisterParams = {
-  firstName: string;
-  lastName: string;
+  name: string;
   username: string;
   email: string;
   password: string;
@@ -48,7 +47,7 @@ export const register = async (registerParams: RegisterParams) => {
     data: { user, accessToken },
   } = await axios.post<AuthDTO, AxiosResponse<AuthDTO>, RegisterParams>(
     '/auth/register',
-    registerParams
+    registerParams,
   );
 
   store.dispatch(setUser(user));
@@ -58,7 +57,7 @@ export const register = async (registerParams: RegisterParams) => {
 export const forgotPassword = async (forgotPasswordParams: ForgotPasswordParams) => {
   await axios.post<void, AxiosResponse<void>, ForgotPasswordParams>(
     '/auth/forgot-password',
-    forgotPasswordParams
+    forgotPasswordParams,
   );
 
   toast.success('Please check your email for the password reset link.');
@@ -67,7 +66,7 @@ export const forgotPassword = async (forgotPasswordParams: ForgotPasswordParams)
 export const resetPassword = async (resetPasswordParams: ResetPasswordParams) => {
   await axios.post<void, AxiosResponse<void>, ResetPasswordParams>(
     '/auth/reset-password',
-    resetPasswordParams
+    resetPasswordParams,
   );
 
   toast.success('Your password has been changed successfully, please login again.');

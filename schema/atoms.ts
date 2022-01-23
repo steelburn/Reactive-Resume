@@ -1,9 +1,3 @@
-export type Name = {
-  first?: string;
-  middle?: string;
-  last?: string;
-};
-
 export type Location = {
   address?: string;
   city?: string;

@@ -26,7 +26,7 @@ const schema = Joi.object({
 const ResetPasswordModal: React.FC = () => {
   const dispatch = useAppDispatch();
   const { open: isOpen, payload } = useAppSelector(
-    (state) => state.modal['auth.reset']
+    (state) => state.modal['auth.reset'],
   ) as ModalState<Payload>;
 
   const { mutate, isLoading } = useMutation<void, ServerError, ResetPasswordParams>(resetPassword);

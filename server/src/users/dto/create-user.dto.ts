@@ -4,11 +4,7 @@ import { IsEmail, IsNotEmpty, IsString, Matches, MinLength } from 'class-validat
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
-  firstName: string;
-
-  @IsString()
-  @IsNotEmpty()
-  lastName: string;
+  name: string;
 
   @MinLength(3)
   @Transform(({ value }) => (value as string).toLowerCase().replace(/[ ]/gi, '-'))
