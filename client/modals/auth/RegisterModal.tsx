@@ -88,7 +88,7 @@ const RegisterModal: React.FC = () => {
               {errors.username ? <span className="error">{errors.username.message}</span> : null}
             </label>
 
-            <label className="form-control">
+            <label className="col-span-2 form-control">
               <span>Email Address</span>
               <input type="email" {...register('email', { required: true })} />
               {errors.email ? <span className="error">{errors.email.message}</span> : null}

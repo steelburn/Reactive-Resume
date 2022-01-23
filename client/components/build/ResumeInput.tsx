@@ -1,11 +1,12 @@
 import clsx from 'clsx';
-import { debounce, get } from 'lodash';
-import React, { useMemo, useState } from 'react';
+import { get } from 'lodash';
+import React, { useState } from 'react';
 
+import { uploadImage } from '@/services/resume';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setResumeState } from '@/store/resume/resumeSlice';
 
-const DEBOUNCE_WAIT = 250;
+const FILE_UPLOAD_MAX_SIZE = 1000000; // 1 megabyte in bytes
 
 interface Props {
   type?: 'text' | 'file';
@@ -17,32 +18,39 @@ interface Props {
 const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className }) => {
   const dispatch = useAppDispatch();
 
+  const resumeId = useAppSelector((state) => state.resume.id);
   const stateValue = useAppSelector((state) => get(state.resume, path, ''));
 
-  const [value, setValue] = useState(stateValue);
-
-  const handleStateUpdate = useMemo(
-    () =>
-      debounce(
-        (path: string, value: string) => dispatch(setResumeState({ path, value })),
-        DEBOUNCE_WAIT,
-      ),
-    [dispatch],
-  );
+  const [value, setValue] = useState<string>(stateValue);
+  const [error, setError] = useState<string | null>(null);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-    handleStateUpdate(path, event.target.value);
+    dispatch(setResumeState({ path, value: event.target.value }));
+  };
+
+  const onFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null);
+
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      if (file.size > FILE_UPLOAD_MAX_SIZE) {
+        setError('Please upload only JPEG/PNGs under 1 MB');
+        return;
+      }
+
+      await uploadImage({ id: resumeId, file: event.target.files[0] });
+    }
   };
 
   if (type === 'file') {
     return (
-      <div className={clsx('grid gap-4 grid-cols-5', className)}>
-        <label className="col-span-4 form-control">
-          <span>{label}</span>
-          <input type="text" value={value} onChange={onChange} />
-        </label>
-      </div>
+      <label className={clsx('form-control file', className)}>
+        <span>{label}</span>
+        <input type={type} onChange={onFileUpload} accept="image/*" />
+        {error && <span className="error">{error}</span>}
+      </label>
     );
   }
 

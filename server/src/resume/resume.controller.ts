@@ -1,8 +1,25 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { mkdirSync } from 'fs';
+import { diskStorage } from 'multer';
+import path from 'path';
 
 import { JwtAuthGuard } from '@/auth/guards/jwt.guard';
 import { OptionalJwtAuthGuard } from '@/auth/guards/optional-jwt.guard';
 import { User } from '@/decorators/user.decorator';
+import { User as UserEntity } from '@/users/entities/user.entity';
 
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { UpdateResumeDto } from './dto/update-resume.dto';
@@ -57,8 +74,34 @@ export class ResumeController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('duplicate/:id')
+  @Post(':id/duplicate')
   duplicate(@Param('id') id: string, @User('id') userId: number) {
     return this.resumeService.duplicate(+id, userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put(':id/upload-image')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: (req, _, cb) => {
+          const userId = (req.user as UserEntity).id;
+          const resumeId = req.params.id;
+          const fileDirectory = `public/uploads/${userId}/${resumeId}`;
+
+          mkdirSync(fileDirectory, { recursive: true });
+
+          cb(null, fileDirectory);
+        },
+        filename: (_, file, cb) => {
+          const filename = 'avatar' + path.extname(file.originalname);
+
+          cb(null, filename);
+        },
+      }),
+    }),
+  )
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    return file.path;
   }
 }

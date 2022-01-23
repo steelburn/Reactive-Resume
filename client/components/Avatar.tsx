@@ -43,7 +43,7 @@ const Avatar: React.FC<Props> = ({ size = 64 }) => {
         <Image
           width={size}
           height={size}
-          alt={user?.firstName}
+          alt={user?.name}
           className={styles.avatar}
           src={getGravatarUrl(email, size)}
         />
@@ -59,9 +59,7 @@ const Avatar: React.FC<Props> = ({ size = 64 }) => {
         <MenuItem>
           <div>
             <span className="text-xs opacity-50">You are logged in as</span>
-            <p>
-              {user?.firstName} {user?.lastName}
-            </p>
+            <p>{user?.name}</p>
           </div>
         </MenuItem>
         <Divider />

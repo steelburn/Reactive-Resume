@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { pick, sample } from 'lodash';
-import { Socket } from 'socket.io';
 import { Repository } from 'typeorm';
 
 import { AuthService } from '@/auth/auth.service';
@@ -150,21 +149,6 @@ export class ResumeService {
         'Something went wrong. Please try again later, or raise an issue on GitHub if the problem persists.',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
-    }
-  }
-
-  getUserFromSocket(socket: Socket) {
-    const accessToken = socket.handshake.headers.authorization;
-
-    if (!accessToken) {
-      socket.disconnect();
-    }
-
-    try {
-      return this.authService.getUserFromAccessToken(accessToken);
-    } catch {
-      socket.emit('error', 'Invalid Credentials');
-      socket.disconnect();
     }
   }
 }

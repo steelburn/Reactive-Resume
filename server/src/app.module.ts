@@ -18,7 +18,7 @@ import { UsersModule } from './users/users.module';
     DatabaseModule,
     ScheduleModule.forRoot(),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'static'),
+      rootPath: join(__dirname, '..', 'public'),
     }),
     AppModule,
     AuthModule,

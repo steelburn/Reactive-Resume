@@ -24,6 +24,11 @@ export type DuplicateResumeParams = {
   id: number;
 };
 
+export type UploadImageParams = {
+  id: number;
+  file: File;
+};
+
 export type DeleteResumeParams = {
   id: number;
 };
@@ -57,9 +62,22 @@ export const updateResume = (updateResumeParams: Partial<Resume>) =>
 export const duplicateResume = (duplicateResumeParams: DuplicateResumeParams) =>
   axios
     .post<Resume, AxiosResponse<Resume>, DuplicateResumeParams>(
-      `/resume/duplicate/${duplicateResumeParams.id}`,
+      `/resume/${duplicateResumeParams.id}/duplicate`,
     )
     .then((res) => res.data);
+
+export const uploadImage = async (uploadImageParams: UploadImageParams) => {
+  const formData = new FormData();
+
+  formData.append('file', uploadImageParams.file);
+
+  return axios
+    .put<Resume, AxiosResponse<Resume>, FormData>(
+      `/resume/${uploadImageParams.id}/upload-image`,
+      formData,
+    )
+    .then((res) => res.data);
+};
 
 export const deleteResume = (deleteResumeParams: DeleteResumeParams) =>
   axios

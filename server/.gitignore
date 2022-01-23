@@ -16,3 +16,7 @@ lerna-debug.log*
 # Tests
 /coverage
 /.nyc_output
+
+# Uploads
+public/uploads/*
+!public/uploads/.gitkeep

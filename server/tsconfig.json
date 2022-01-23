@@ -29,5 +29,6 @@
       "@/resume/*": ["src/resume/*"],
       "@/users/*": ["src/users/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "public/uploads", "dist"]
 }

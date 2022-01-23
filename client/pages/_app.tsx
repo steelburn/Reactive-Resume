@@ -12,7 +12,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import Loading from '@/components/Loading';
 import theme from '@/config/theme';
-import { SocketProvider } from '@/context/SocketContext';
 import ModalWrapper from '@/modals/index';
 import queryClient from '@/services/react-query';
 import store, { persistor } from '@/store/index';
@@ -33,25 +32,23 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 
       <ThemeProvider theme={theme}>
         <ReduxProvider store={store}>
-          <SocketProvider>
-            <PersistGate loading={null} persistor={persistor}>
-              <QueryClientProvider client={queryClient}>
-                <Loading />
+          <PersistGate loading={null} persistor={persistor}>
+            <QueryClientProvider client={queryClient}>
+              <Loading />
 
-                <Component {...pageProps} />
+              <Component {...pageProps} />
 
-                <ModalWrapper />
-                <ReactQueryDevtools />
-                <Toaster
-                  position="bottom-center"
-                  toastOptions={{
-                    duration: 4000,
-                    className: 'toast',
-                  }}
-                />
-              </QueryClientProvider>
-            </PersistGate>
-          </SocketProvider>
+              <ModalWrapper />
+              <ReactQueryDevtools />
+              <Toaster
+                position="bottom-center"
+                toastOptions={{
+                  duration: 4000,
+                  className: 'toast',
+                }}
+              />
+            </QueryClientProvider>
+          </PersistGate>
         </ReduxProvider>
       </ThemeProvider>
     </>
