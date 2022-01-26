@@ -10,7 +10,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import Loading from '@/components/Loading';
+import Loading from '@/components/shared/Loading';
 import theme from '@/config/theme';
 import ModalWrapper from '@/modals/index';
 import queryClient from '@/services/react-query';
@@ -41,7 +41,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
               <ModalWrapper />
               <ReactQueryDevtools />
               <Toaster
-                position="bottom-center"
+                position="bottom-right"
                 toastOptions={{
                   duration: 4000,
                   className: 'toast',

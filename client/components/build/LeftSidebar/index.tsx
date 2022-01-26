@@ -1,13 +1,15 @@
 import { Person as PersonIcon } from '@mui/icons-material';
 import { Divider, IconButton, SwipeableDrawer, Tooltip, useMediaQuery } from '@mui/material';
 
-import Logo from '@/components/Logo';
+import Logo from '@/components/shared/Logo';
 import theme from '@/config/theme';
 import { setSidebarState } from '@/store/build/buildSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import styles from '@/styles/components/build/LeftSidebar.module.scss';
 
 import Basics from './Basics';
+import styles from './LeftSidebar.module.scss';
+import Location from './Location';
+import Profiles from './Profiles';
 
 const LeftSidebar = () => {
   const dispatch = useAppDispatch();
@@ -52,6 +54,8 @@ const LeftSidebar = () => {
 
         <main>
           <Basics />
+          <Location />
+          <Profiles />
         </main>
       </div>
     </SwipeableDrawer>

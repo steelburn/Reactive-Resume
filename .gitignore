@@ -9,6 +9,9 @@ node_modules
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
+# OS
+.DS_Store
+
 # Environment Variables
 .env
 .env.*

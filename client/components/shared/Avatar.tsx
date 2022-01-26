@@ -5,8 +5,9 @@ import { useState } from 'react';
 
 import { logout } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import styles from '@/styles/components/Avatar.module.scss';
 import getGravatarUrl from '@/utils/getGravatarUrl';
+
+import styles from './Avatar.module.scss';
 
 type Props = {
   size?: number;

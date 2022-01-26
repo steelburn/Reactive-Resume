@@ -2,7 +2,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 
-import BaseModal from '@/components/BaseModal';
+import BaseModal from '@/components/shared/BaseModal';
 import { register as registerUser } from '@/services/auth';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setModalState } from '@/store/modal/modalSlice';

@@ -11,7 +11,8 @@ import { useRouter } from 'next/router';
 import theme from '@/config/theme';
 import { setSidebarState } from '@/store/build/buildSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import styles from '@/styles/components/build/Header.module.scss';
+
+import styles from './Header.module.scss';
 
 const Header = () => {
   const router = useRouter();

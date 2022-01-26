@@ -3,9 +3,10 @@ import { ButtonBase } from '@mui/material';
 
 import { useAppDispatch } from '@/store/hooks';
 import { setModalState } from '@/store/modal/modalSlice';
-import styles from '@/styles/components/dashboard/CreateResumeCard.module.scss';
 
-const CreateResumeCard = () => {
+import styles from './CreateResume.module.scss';
+
+const CreateResume = () => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
@@ -28,4 +29,4 @@ const CreateResumeCard = () => {
   );
 };
 
-export default CreateResumeCard;
+export default CreateResume;

@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { get } from 'lodash';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { uploadImage } from '@/services/resume';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -9,34 +10,38 @@ import { setResumeState } from '@/store/resume/resumeSlice';
 const FILE_UPLOAD_MAX_SIZE = 1000000; // 1 megabyte in bytes
 
 interface Props {
-  type?: 'text' | 'file';
+  type?: 'text' | 'textarea' | 'file';
   label: string;
   path: string;
   className?: string;
+  markdownSupported?: boolean;
 }
 
-const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className }) => {
+const ResumeInput: React.FC<Props> = ({
+  type = 'text',
+  label,
+  path,
+  className,
+  markdownSupported = false,
+}) => {
   const dispatch = useAppDispatch();
 
   const resumeId = useAppSelector((state) => state.resume.id);
   const stateValue = useAppSelector((state) => get(state.resume, path, ''));
 
   const [value, setValue] = useState<string>(stateValue);
-  const [error, setError] = useState<string | null>(null);
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValue(event.target.value);
     dispatch(setResumeState({ path, value: event.target.value }));
   };
 
   const onFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setError(null);
-
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
 
       if (file.size > FILE_UPLOAD_MAX_SIZE) {
-        setError('Please upload only JPEG/PNGs under 1 MB');
+        toast.error('Please upload only images under 1 MB, preferrably square-cropped.');
         return;
       }
 
@@ -49,7 +54,24 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className })
       <label className={clsx('form-control file', className)}>
         <span>{label}</span>
         <input type={type} onChange={onFileUpload} accept="image/*" />
-        {error && <span className="error">{error}</span>}
+      </label>
+    );
+  }
+
+  if (type === 'textarea') {
+    return (
+      <label className={clsx('form-control', className)}>
+        <span>{label}</span>
+        <textarea value={value} onChange={onChange} rows={5} />
+        {markdownSupported && (
+          <span className="pt-2 text-xs opacity-50">
+            This section supports{' '}
+            <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noreferrer">
+              markdown
+            </a>{' '}
+            formatting.
+          </span>
+        )}
       </label>
     );
   }

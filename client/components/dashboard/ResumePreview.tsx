@@ -25,13 +25,14 @@ import {
 } from '@/services/resume';
 import { useAppDispatch } from '@/store/hooks';
 import { setModalState } from '@/store/modal/modalSlice';
-import styles from '@/styles/components/dashboard/ResumeCard.module.scss';
+
+import styles from './ResumePreview.module.scss';
 
 type Props = {
   resume: Resume;
 };
 
-const ResumeCard: React.FC<Props> = ({ resume }) => {
+const ResumePreview: React.FC<Props> = ({ resume }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -167,4 +168,4 @@ const ResumeCard: React.FC<Props> = ({ resume }) => {
   );
 };
 
-export default ResumeCard;
+export default ResumePreview;

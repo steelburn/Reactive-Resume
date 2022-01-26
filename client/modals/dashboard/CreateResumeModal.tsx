@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import BaseModal from '@/components/BaseModal';
+import BaseModal from '@/components/shared/BaseModal';
 import { ServerError } from '@/services/axios';
 import queryClient from '@/services/react-query';
 import { createResume, CreateResumeParams } from '@/services/resume';

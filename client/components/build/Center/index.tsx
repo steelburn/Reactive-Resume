@@ -1,9 +1,8 @@
 import clsx from 'clsx';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
-import styles from '@/styles/components/build/Center.module.scss';
-
 import Artboard from './Artboard';
+import styles from './Center.module.scss';
 import Header from './Header';
 import PageController from './PageController';
 

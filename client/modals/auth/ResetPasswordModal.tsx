@@ -3,7 +3,7 @@ import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import BaseModal from '@/components/BaseModal';
+import BaseModal from '@/components/shared/BaseModal';
 import { resetPassword, ResetPasswordParams } from '@/services/auth';
 import { ServerError } from '@/services/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';

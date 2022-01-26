@@ -2,10 +2,10 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useQuery } from 'react-query';
 
-import Avatar from '@/components/Avatar';
 import CreateResumeCard from '@/components/dashboard/CreateResumeCard';
-import ResumeCard from '@/components/dashboard/ResumeCard';
-import Logo from '@/components/Logo';
+import ResumeCard from '@/components/dashboard/ResumePreview';
+import Avatar from '@/components/shared/Avatar';
+import Logo from '@/components/shared/Logo';
 import { fetchResumes } from '@/services/resume';
 import styles from '@/styles/pages/Dashboard.module.scss';
 

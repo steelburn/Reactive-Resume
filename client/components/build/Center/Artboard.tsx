@@ -2,7 +2,8 @@ import clsx from 'clsx';
 import { isEmpty } from 'lodash';
 
 import { useAppSelector } from '@/store/hooks';
-import styles from '@/styles/components/build/Artboard.module.scss';
+
+import styles from './Artboard.module.scss';
 
 const Artboard = () => {
   const resume = useAppSelector((state) => state.resume);

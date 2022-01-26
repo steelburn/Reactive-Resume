@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useIsFetching, useIsMutating } from 'react-query';
 
-import styles from '@/styles/components/Loading.module.scss';
+import styles from './Loading.module.scss';
 
 const Loading: React.FC = () => {
   const { isReady } = useRouter();

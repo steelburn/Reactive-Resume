@@ -1,10 +1,11 @@
 import { Divider, SwipeableDrawer, useMediaQuery } from '@mui/material';
 
-import Avatar from '@/components/Avatar';
+import Avatar from '@/components/shared/Avatar';
 import theme from '@/config/theme';
 import { setSidebarState } from '@/store/build/buildSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import styles from '@/styles/components/build/RightSidebar.module.scss';
+
+import styles from './RightSidebar.module.scss';
 
 const RightSidebar = () => {
   const dispatch = useAppDispatch();

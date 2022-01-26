@@ -2,7 +2,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 
-import BaseModal from '@/components/BaseModal';
+import BaseModal from '@/components/shared/BaseModal';
 import { login } from '@/services/auth';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setModalState } from '@/store/modal/modalSlice';
@@ -70,7 +70,7 @@ const LoginModal: React.FC = () => {
             <strong>password</strong> associated with your account to login and access your data.
           </p>
 
-          <form className="grid gap-4">
+          <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
             <label className="form-control">
               <span>Username/Email Address</span>
               <input type="text" {...register('identifier', { required: true })} />

@@ -6,7 +6,7 @@ import {
 import { ButtonBase, Tooltip } from '@mui/material';
 import { ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 
-import styles from '@/styles/components/build/PageController.module.scss';
+import styles from './PageController.module.scss';
 
 const PageController: React.FC<ReactZoomPanPinchRef> = ({ zoomIn, zoomOut, centerView }) => {
   return (
