@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
+import Joi from 'joi';
 
 import appConfig from './app.config';
 import authConfig from './auth.config';
@@ -23,13 +23,6 @@ const validationSchema = Joi.object({
   // Auth
   JWT_SECRET: Joi.string().required(),
   JWT_EXPIRY_TIME: Joi.number().required(),
-
-  // Mail
-  MAIL_HOST: Joi.string(),
-  MAIL_PORT: Joi.string(),
-  MAIL_USERNAME: Joi.string(),
-  MAIL_PASSWORD: Joi.string(),
-  MAIL_FROM: Joi.string(),
 });
 
 @Module({
