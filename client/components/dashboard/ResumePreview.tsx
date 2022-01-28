@@ -1,12 +1,12 @@
 import {
-  ContentCopy as ContentCopyIcon,
-  DeleteOutline as DeleteOutlineIcon,
-  DriveFileRenameOutline as DriveFileRenameOutlineIcon,
-  Link as LinkIcon,
-  MoreVert as MoreVertIcon,
-  OpenInNew as OpenInNewIcon,
+  ContentCopy,
+  DeleteOutline,
+  DriveFileRenameOutline,
+  Link,
+  MoreVert,
+  OpenInNew,
 } from '@mui/icons-material';
-import { ButtonBase, Menu, MenuItem, Tooltip } from '@mui/material';
+import { ButtonBase, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 import { Resume } from '@reactive-resume/schema';
 import dayjs from 'dayjs';
 import Image from 'next/image';
@@ -95,7 +95,7 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
 
   return (
     <section className={styles.resume}>
-      <div className={styles.preview} onClick={handleOpen}>
+      <ButtonBase className={styles.preview} onClick={handleOpen}>
         {resume.image ? (
           <Image
             src={process.env.NEXT_PUBLIC_SERVER_GATEWAY + resume.image}
@@ -105,7 +105,7 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
             priority
           />
         ) : null}
-      </div>
+      </ButtonBase>
 
       <footer>
         <div className={styles.meta}>
@@ -114,27 +114,35 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
         </div>
 
         <ButtonBase className={styles.menu} onClick={handleOpenMenu}>
-          <MoreVertIcon />
+          <MoreVert />
         </ButtonBase>
 
         <Menu anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>
           <MenuItem onClick={handleOpen}>
-            <OpenInNewIcon />
-            <span className="ml-3">Open</span>
+            <ListItemIcon>
+              <OpenInNew />
+            </ListItemIcon>
+            <ListItemText>Open</ListItemText>
           </MenuItem>
           <MenuItem onClick={handleRename}>
-            <DriveFileRenameOutlineIcon />
-            <span className="ml-3">Rename</span>
+            <ListItemIcon>
+              <DriveFileRenameOutline />
+            </ListItemIcon>
+            <ListItemText>Rename</ListItemText>
           </MenuItem>
           <MenuItem onClick={handleDuplicate}>
-            <ContentCopyIcon />
-            <span className="ml-3">Duplicate</span>
+            <ListItemIcon>
+              <ContentCopy />
+            </ListItemIcon>
+            <ListItemText>Duplicate</ListItemText>
           </MenuItem>
 
           {resume.public ? (
             <MenuItem onClick={handleShareLink}>
-              <LinkIcon />
-              <span className="ml-3">Share Link</span>
+              <ListItemIcon>
+                <Link />
+              </ListItemIcon>
+              <ListItemText>Share Link</ListItemText>
             </MenuItem>
           ) : (
             <Tooltip
@@ -144,8 +152,10 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
             >
               <div>
                 <MenuItem disabled>
-                  <LinkIcon />
-                  <span className="ml-3">Share Link</span>
+                  <ListItemIcon>
+                    <Link />
+                  </ListItemIcon>
+                  <ListItemText>Share Link</ListItemText>
                 </MenuItem>
               </div>
             </Tooltip>
@@ -157,8 +167,10 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
           >
             <div>
               <MenuItem onClick={handleDelete}>
-                <DeleteOutlineIcon className="text-red-600 dark:text-red-400" />
-                <span className="ml-3 text-red-600 dark:text-red-400">Delete</span>
+                <ListItemIcon>
+                  <DeleteOutline className="text-red-600 dark:text-red-400" />
+                </ListItemIcon>
+                <ListItemText className="text-red-600 dark:text-red-400">Delete</ListItemText>
               </MenuItem>
             </div>
           </Tooltip>

@@ -1,5 +1,5 @@
 .center {
-  @apply flex flex-grow pt-12 lg:pt-16 mx-0;
+  @apply mx-0 flex flex-grow pt-12 lg:pt-16;
   @apply transition-[margin-left,margin-right] duration-200;
 }
 
@@ -12,5 +12,5 @@
 }
 
 .wrapper {
-  @apply w-full h-full #{!important};
+  @apply h-full w-full #{!important};
 }

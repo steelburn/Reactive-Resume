@@ -1,5 +1,5 @@
 .ReactModal__Overlay {
-  @apply w-screen h-screen fixed inset-0 md:flex md:justify-center md:items-center;
+  @apply fixed inset-0 h-screen w-screen md:flex md:items-center md:justify-center;
   @apply bg-white/75 dark:bg-black/75;
   @apply opacity-0 transition duration-200;
 
@@ -13,22 +13,22 @@
 }
 
 .ReactModal__Content {
-  @apply lg:w-1/2 xl:w-2/5 rounded p-6 text-sm shadow-lg;
+  @apply rounded p-6 text-sm shadow-lg lg:w-1/2 xl:w-2/5;
   @apply absolute top-4 left-4 right-4 sm:inset-x-4 sm:inset-y-auto lg:inset-auto;
   @apply bg-neutral-50 dark:bg-neutral-900;
 }
 
 .ReactModal__Header {
   @apply flex items-center justify-between;
-  @apply w-full mb-4 pb-4 border-b border-white/10;
+  @apply w-full border-b border-white/10 pb-5;
 
   > div {
-    @apply flex gap-2 items-center;
+    @apply flex items-center gap-2;
   }
 
   button {
     @apply flex items-center justify-center;
-    @apply transition-transform rotate-0 hover:rotate-90;
+    @apply rotate-0 transition-transform hover:rotate-90;
   }
 
   h1 {
@@ -36,7 +36,11 @@
   }
 }
 
+.ReactModal__Body {
+  @apply grid gap-4 pt-4 pb-6;
+}
+
 .ReactModal__Footer {
-  @apply flex gap-x-4 items-center justify-end;
-  @apply w-full mt-6 pt-4 border-t border-white/10;
+  @apply flex items-center justify-end gap-x-4;
+  @apply w-full border-t border-white/10 pt-5;
 }

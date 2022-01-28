@@ -26,7 +26,9 @@ export const buildSlice = createSlice({
     setSidebarState: (state, action: PayloadAction<SidebarStatePayload>) => {
       const { sidebar, state: newState } = action.payload;
 
-      sidebar === 'left' ? (state.leftSidebar = newState) : (state.rightSidebar = newState);
+      sidebar === 'left'
+        ? (state.leftSidebar = { ...state, ...newState })
+        : (state.rightSidebar = { ...state, ...newState });
     },
   },
 });

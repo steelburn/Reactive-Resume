@@ -1,6 +1,6 @@
 import { Add } from '@mui/icons-material';
+import { Button } from '@mui/material';
 
-import Button from '@/components/shared/Button';
 import Header from '@/components/shared/Header';
 import List from '@/components/shared/List';
 
@@ -12,7 +12,7 @@ const Profiles = () => {
       <List path="basics.profiles" />
 
       <footer className="flex justify-end">
-        <Button variant="outline" icon={<Add />}>
+        <Button variant="outlined" startIcon={<Add />}>
           Add New Profile
         </Button>
       </footer>

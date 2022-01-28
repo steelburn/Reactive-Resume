@@ -1,4 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
+import { DriveFileRenameOutline } from '@mui/icons-material';
+import { Button } from '@mui/material';
 import { Resume } from '@reactive-resume/schema';
 import Joi from 'joi';
 import { useEffect } from 'react';
@@ -89,39 +91,32 @@ const RenameResumeModal: React.FC = () => {
   };
 
   return (
-    <>
-      <BaseModal
-        isOpen={isOpen}
-        heading="Rename your resume"
-        handleClose={handleClose}
-        footerChildren={
-          <button
-            type="submit"
-            className="btn"
-            disabled={isLoading}
-            onClick={handleSubmit(onSubmit)}
-          >
-            Rename Resume
-          </button>
-        }
-      >
-        <div className="grid gap-4">
-          <form className="grid gap-4">
-            <label className="form-control">
-              <span>Name</span>
-              <input type="text" {...register('name', { required: true })} />
-              {errors.name ? <span className="error">{errors.name.message}</span> : null}
-            </label>
+    <BaseModal
+      icon={<DriveFileRenameOutline />}
+      isOpen={isOpen}
+      heading="Rename your resume"
+      handleClose={handleClose}
+      handleSubmit={handleSubmit(onSubmit)}
+      footerChildren={
+        <Button type="submit" disabled={isLoading} onClick={handleSubmit(onSubmit)}>
+          Rename Resume
+        </Button>
+      }
+    >
+      <form className="grid gap-4">
+        <label className="form-control">
+          <span>Name</span>
+          <input type="text" {...register('name', { required: true })} />
+          {errors.name ? <span className="error">{errors.name.message}</span> : null}
+        </label>
 
-            <label className="form-control">
-              <span>Slug</span>
-              <input type="text" {...register('slug', { required: true })} />
-              {errors.slug ? <span className="error">{errors.slug.message}</span> : null}
-            </label>
-          </form>
-        </div>
-      </BaseModal>
-    </>
+        <label className="form-control">
+          <span>Slug</span>
+          <input type="text" {...register('slug', { required: true })} />
+          {errors.slug ? <span className="error">{errors.slug.message}</span> : null}
+        </label>
+      </form>
+    </BaseModal>
   );
 };
 

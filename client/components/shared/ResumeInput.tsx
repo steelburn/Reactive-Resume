@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { get } from 'lodash';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { uploadImage } from '@/services/resume';

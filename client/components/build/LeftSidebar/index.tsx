@@ -43,7 +43,7 @@ const LeftSidebar = () => {
 
           <div className={styles.sections}>
             <Tooltip title="Profile" placement="right" arrow>
-              <IconButton size="small">
+              <IconButton>
                 <PersonIcon />
               </IconButton>
             </Tooltip>

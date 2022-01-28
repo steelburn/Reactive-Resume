@@ -6,7 +6,6 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -39,7 +38,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
               <Component {...pageProps} />
 
               <ModalWrapper />
-              <ReactQueryDevtools />
               <Toaster
                 position="bottom-right"
                 toastOptions={{

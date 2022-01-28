@@ -1,5 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { FormControlLabel, FormGroup, Switch } from '@mui/material';
+import { Add } from '@mui/icons-material';
+import { Button, FormControlLabel, FormGroup, Switch } from '@mui/material';
 import { Resume } from '@reactive-resume/schema';
 import Joi from 'joi';
 import { useEffect } from 'react';
@@ -75,58 +76,51 @@ const CreateResumeModal: React.FC = () => {
   };
 
   return (
-    <>
-      <BaseModal
-        isOpen={isOpen}
-        heading="Create a new resume"
-        handleClose={handleClose}
-        footerChildren={
-          <button
-            type="submit"
-            className="btn"
-            disabled={isLoading}
-            onClick={handleSubmit(onSubmit)}
-          >
-            Create Resume
-          </button>
-        }
-      >
-        <div className="grid gap-4">
-          <p>
-            Start building your resume by giving it a name. It could be in reference to the role you
-            are applying for, or just your favorite snack.
-          </p>
+    <BaseModal
+      isOpen={isOpen}
+      icon={<Add />}
+      heading="Create a new resume"
+      handleClose={handleClose}
+      handleSubmit={handleSubmit(onSubmit)}
+      footerChildren={
+        <Button type="submit" disabled={isLoading} onClick={handleSubmit(onSubmit)}>
+          Create Resume
+        </Button>
+      }
+    >
+      <p>
+        Start building your resume by giving it a name. It could be in reference to the role you are
+        applying for, or just your favorite snack.
+      </p>
 
-          <form className="grid gap-4">
-            <label className="form-control">
-              <span>Name</span>
-              <input type="text" {...register('name', { required: true })} />
-              {errors.name ? <span className="error">{errors.name.message}</span> : null}
-            </label>
+      <form className="grid gap-4">
+        <label className="form-control">
+          <span>Name</span>
+          <input type="text" {...register('name', { required: true })} />
+          {errors.name ? <span className="error">{errors.name.message}</span> : null}
+        </label>
 
-            <label className="form-control">
-              <span>Slug</span>
-              <input type="text" {...register('slug', { required: true })} />
-              {errors.slug ? <span className="error">{errors.slug.message}</span> : null}
-            </label>
+        <label className="form-control">
+          <span>Slug</span>
+          <input type="text" {...register('slug', { required: true })} />
+          {errors.slug ? <span className="error">{errors.slug.message}</span> : null}
+        </label>
 
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Controller
-                    name="isPublic"
-                    control={control}
-                    defaultValue={true}
-                    render={({ field }) => <Switch defaultChecked color="secondary" {...field} />}
-                  />
-                }
-                label="Is Publicly Accessible?"
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Controller
+                name="isPublic"
+                control={control}
+                defaultValue={true}
+                render={({ field }) => <Switch defaultChecked color="secondary" {...field} />}
               />
-            </FormGroup>
-          </form>
-        </div>
-      </BaseModal>
-    </>
+            }
+            label="Is Publicly Accessible?"
+          />
+        </FormGroup>
+      </form>
+    </BaseModal>
   );
 };
 

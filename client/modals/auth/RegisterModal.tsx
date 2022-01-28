@@ -1,9 +1,13 @@
 import { joiResolver } from '@hookform/resolvers/joi';
+import { HowToReg } from '@mui/icons-material';
+import { Button } from '@mui/material';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 
 import BaseModal from '@/components/shared/BaseModal';
-import { register as registerUser } from '@/services/auth';
+import { register as registerUser, RegisterParams } from '@/services/auth';
+import { ServerError } from '@/services/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setModalState } from '@/store/modal/modalSlice';
 
@@ -41,18 +45,20 @@ const RegisterModal: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({ resolver: joiResolver(schema) });
 
+  const { mutate, isLoading } = useMutation<void, ServerError, RegisterParams>(registerUser);
+
   const handleClose = () => {
     reset();
     dispatch(setModalState({ modal: 'auth.register', state: { open: false } }));
   };
 
-  const onSubmit = async ({ name, username, email, password }: FormData) => {
-    try {
-      await registerUser({ name, username, email, password });
-      handleClose();
-    } catch {
-      // pass through
-    }
+  const onSubmit = ({ name, username, email, password }: FormData) => {
+    mutate(
+      { name, username, email, password },
+      {
+        onSuccess: handleClose,
+      },
+    );
   };
 
   const handleLogin = () => {
@@ -61,60 +67,58 @@ const RegisterModal: React.FC = () => {
   };
 
   return (
-    <>
-      <BaseModal
-        isOpen={isOpen}
-        handleClose={handleClose}
-        heading="Create an account"
-        footerChildren={
-          <button className="btn" type="submit" onClick={handleSubmit(onSubmit)}>
-            Register
-          </button>
-        }
-      >
-        <div className="grid gap-4">
-          <p>Please enter your personal information to create an account on Reactive Resume.</p>
+    <BaseModal
+      icon={<HowToReg />}
+      isOpen={isOpen}
+      heading="Create an account"
+      handleClose={handleClose}
+      handleSubmit={handleSubmit(onSubmit)}
+      footerChildren={
+        <Button type="submit" onClick={handleSubmit(onSubmit)} disabled={isLoading}>
+          Register
+        </Button>
+      }
+    >
+      <p>Please enter your personal information to create an account on Reactive Resume.</p>
 
-          <form className="grid gap-4 md:grid-cols-2">
-            <label className="form-control">
-              <span>Full Name</span>
-              <input type="text" {...register('name', { required: true })} />
-              {errors.name ? <span className="error">{errors.name.message}</span> : null}
-            </label>
+      <form className="grid gap-4 md:grid-cols-2">
+        <label className="form-control">
+          <span>Full Name</span>
+          <input type="text" {...register('name', { required: true })} />
+          {errors.name ? <span className="error">{errors.name.message}</span> : null}
+        </label>
 
-            <label className="form-control">
-              <span>Username</span>
-              <input type="text" {...register('username', { required: true })} />
-              {errors.username ? <span className="error">{errors.username.message}</span> : null}
-            </label>
+        <label className="form-control">
+          <span>Username</span>
+          <input type="text" {...register('username', { required: true })} />
+          {errors.username ? <span className="error">{errors.username.message}</span> : null}
+        </label>
 
-            <label className="col-span-2 form-control">
-              <span>Email Address</span>
-              <input type="email" {...register('email', { required: true })} />
-              {errors.email ? <span className="error">{errors.email.message}</span> : null}
-            </label>
+        <label className="form-control col-span-2">
+          <span>Email Address</span>
+          <input type="email" {...register('email', { required: true })} />
+          {errors.email ? <span className="error">{errors.email.message}</span> : null}
+        </label>
 
-            <label className="form-control">
-              <span>Password</span>
-              <input type="password" {...register('password', { required: true })} />
-              {errors.password ? <span className="error">{errors.password.message}</span> : null}
-            </label>
+        <label className="form-control">
+          <span>Password</span>
+          <input type="password" {...register('password', { required: true })} />
+          {errors.password ? <span className="error">{errors.password.message}</span> : null}
+        </label>
 
-            <label className="form-control">
-              <span>Confirm Password</span>
-              <input type="password" {...register('confirmPassword', { required: true })} />
-              {errors.confirmPassword ? (
-                <span className="error">{errors.confirmPassword.message}</span>
-              ) : null}
-            </label>
-          </form>
+        <label className="form-control">
+          <span>Confirm Password</span>
+          <input type="password" {...register('confirmPassword', { required: true })} />
+          {errors.confirmPassword ? (
+            <span className="error">{errors.confirmPassword.message}</span>
+          ) : null}
+        </label>
+      </form>
 
-          <p className="text-xs">
-            If you already have an account, you can <a onClick={handleLogin}>login here</a>.
-          </p>
-        </div>
-      </BaseModal>
-    </>
+      <p className="text-xs">
+        If you already have an account, you can <a onClick={handleLogin}>login here</a>.
+      </p>
+    </BaseModal>
   );
 };
 

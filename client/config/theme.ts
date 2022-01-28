@@ -5,38 +5,37 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: grey.A700,
+      main: grey[50],
     },
     secondary: {
-      main: teal.A700,
+      main: teal[400],
     },
     background: {
-      default: '#111111',
-      paper: '#222222',
+      default: '#121212',
+      paper: grey[900],
     },
   },
   typography: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'Inter, sans-serif',
   },
   components: {
-    MuiSvgIcon: {
+    MuiButton: {
       defaultProps: {
-        fontSize: 'small',
+        size: 'small',
+        variant: 'contained',
       },
-    },
-    MuiMenuItem: {
       styleOverrides: {
         root: {
-          fontSize: 14,
+          textTransform: 'none',
+          padding: '6px 24px',
         },
       },
     },
-    MuiFormControlLabel: {
-      styleOverrides: {
-        label: {
-          fontSize: 14,
-        },
+    MuiTextField: {
+      defaultProps: {
+        // size: 'small',
+        variant: 'outlined',
       },
     },
     MuiAppBar: {

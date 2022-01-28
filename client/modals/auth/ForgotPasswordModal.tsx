@@ -1,4 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
+import { Password } from '@mui/icons-material';
+import { Button } from '@mui/material';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -40,24 +42,21 @@ const ForgotPasswordModal: React.FC = () => {
   };
 
   const onSubmit = ({ email }: FormData) => {
-    mutate({ email }, { onSettled: () => handleClose() });
+    mutate({ email }, { onSettled: handleClose });
   };
 
   return (
     <>
       <BaseModal
+        icon={<Password />}
         isOpen={isOpen}
         heading="Forgot your password?"
         handleClose={handleClose}
+        handleSubmit={handleSubmit(onSubmit)}
         footerChildren={
-          <button
-            type="submit"
-            className="btn"
-            disabled={isLoading}
-            onClick={handleSubmit(onSubmit)}
-          >
+          <Button type="submit" disabled={isLoading} onClick={handleSubmit(onSubmit)}>
             Send Reset Password Email
-          </button>
+          </Button>
         }
       >
         <div className="grid gap-4">

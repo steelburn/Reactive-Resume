@@ -1,16 +1,28 @@
-import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
+import { Close as CloseIcon } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { useRouter } from 'next/router';
 import ReactModal from 'react-modal';
 
+import handleEnter from '@/utils/handleEnter';
+
 type Props = {
+  icon?: React.ReactNode;
   isOpen: boolean;
   heading: string;
   handleClose: () => void;
+  handleSubmit?: () => void;
   footerChildren?: React.ReactNode;
 };
 
-const BaseModal: React.FC<Props> = ({ isOpen, heading, children, handleClose, footerChildren }) => {
+const BaseModal: React.FC<Props> = ({
+  icon,
+  isOpen,
+  heading,
+  children,
+  handleClose,
+  handleSubmit,
+  footerChildren,
+}) => {
   const router = useRouter();
   const { pathname } = router;
 
@@ -29,8 +41,9 @@ const BaseModal: React.FC<Props> = ({ isOpen, heading, children, handleClose, fo
       overlayClassName="ReactModal__Overlay"
     >
       <header className="ReactModal__Header">
-        <div>
-          <AddIcon />
+        <div className="flex items-center">
+          {icon}
+          {icon && <span className="mx-1 opacity-25">/</span>}
           <h1>{heading}</h1>
         </div>
 
@@ -38,7 +51,10 @@ const BaseModal: React.FC<Props> = ({ isOpen, heading, children, handleClose, fo
           <CloseIcon sx={{ fontSize: 18 }} />
         </IconButton>
       </header>
-      {children}
+
+      <div className="ReactModal__Body" onKeyDown={(e) => handleEnter(e, handleSubmit)}>
+        {children}
+      </div>
 
       {footerChildren ? <footer className="ReactModal__Footer">{footerChildren}</footer> : null}
     </ReactModal>

@@ -2,7 +2,7 @@
   animation: progress 2s linear infinite;
 
   @apply fixed top-0 z-50;
-  @apply w-screen h-0.5 bg-primary-500 shadow shadow-primary-500/50;
+  @apply bg-primary-500 shadow-primary-500/50 h-0.5 w-screen shadow;
 }
 
 @keyframes progress {

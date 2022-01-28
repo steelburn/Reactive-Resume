@@ -1,4 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
+import { LockReset } from '@mui/icons-material';
+import { Button } from '@mui/material';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -46,51 +48,44 @@ const ResetPasswordModal: React.FC = () => {
   const onSubmit = ({ password }: FormData) => {
     if (!payload?.resetToken) return;
 
-    mutate({ resetToken: payload?.resetToken, password }, { onSuccess: () => handleClose() });
+    mutate({ resetToken: payload.resetToken, password }, { onSuccess: handleClose });
   };
 
   return (
-    <>
-      <BaseModal
-        isOpen={isOpen}
-        heading="Reset your password"
-        handleClose={handleClose}
-        footerChildren={
-          <button
-            type="submit"
-            className="btn"
-            disabled={isLoading}
-            onClick={handleSubmit(onSubmit)}
-          >
-            Set New Password
-          </button>
-        }
-      >
-        <div className="grid gap-4">
-          <p>Just enter the email address associated with the account you would like to recover.</p>
+    <BaseModal
+      icon={<LockReset />}
+      isOpen={isOpen}
+      heading="Reset your password"
+      handleClose={handleClose}
+      handleSubmit={handleSubmit(onSubmit)}
+      footerChildren={
+        <Button type="submit" disabled={isLoading} onClick={handleSubmit(onSubmit)}>
+          Set New Password
+        </Button>
+      }
+    >
+      <p>Just enter the email address associated with the account you would like to recover.</p>
 
-          <form className="grid gap-4 md:grid-cols-2">
-            <label className="form-control">
-              <span>Password</span>
-              <input type="password" {...register('password', { required: true })} />
-              {errors.password ? <span className="error">{errors.password.message}</span> : null}
-            </label>
+      <form className="grid gap-4 md:grid-cols-2">
+        <label className="form-control">
+          <span>Password</span>
+          <input type="password" {...register('password', { required: true })} />
+          {errors.password ? <span className="error">{errors.password.message}</span> : null}
+        </label>
 
-            <label className="form-control">
-              <span>Confirm Password</span>
-              <input type="password" {...register('confirmPassword', { required: true })} />
-              {errors.confirmPassword ? (
-                <span className="error">{errors.confirmPassword.message}</span>
-              ) : null}
-            </label>
-          </form>
+        <label className="form-control">
+          <span>Confirm Password</span>
+          <input type="password" {...register('confirmPassword', { required: true })} />
+          {errors.confirmPassword ? (
+            <span className="error">{errors.confirmPassword.message}</span>
+          ) : null}
+        </label>
+      </form>
 
-          <p className="text-xs">
-            If the account exists, you will receive an email with a link to reset your password.
-          </p>
-        </div>
-      </BaseModal>
-    </>
+      <p className="text-xs">
+        If the account exists, you will receive an email with a link to reset your password.
+      </p>
+    </BaseModal>
   );
 };
 

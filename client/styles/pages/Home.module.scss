@@ -1,13 +1,29 @@
 .container {
-  @apply grid gap-10 m-6 text-center md:m-8 md:text-left;
+  @apply m-6 grid gap-10 text-center md:m-8 md:text-left;
 }
 
 .header {
   @apply flex flex-col items-center gap-8 md:flex-row;
+
+  .logo {
+    @apply h-64 w-64;
+  }
+
+  .main {
+    @apply grid md:flex-1 md:justify-start;
+
+    h1 {
+      @apply text-4xl font-bold;
+    }
+
+    h2 {
+      @apply opacity-50;
+    }
+  }
 }
 
 .button-wrapper {
-  @apply flex justify-center gap-4 mt-8 md:justify-start;
+  @apply mt-8 flex justify-center gap-4 md:justify-start;
 }
 
 .section {

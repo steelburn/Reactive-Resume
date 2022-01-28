@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { ButtonBase } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -10,20 +10,18 @@ type Props = {
 const Logo: React.FC<Props> = ({ size = 64, url = '/' }) => {
   const router = useRouter();
 
-  const goHome = () => {
-    router.push(url);
-  };
+  const gotoURL = () => router.push(url);
 
   return (
-    <IconButton onClick={goHome}>
+    <ButtonBase onClick={gotoURL}>
       <Image
         alt="Reactive Resume"
         src="/images/logo.svg"
-        className="rounded cursor-pointer"
+        className="rounded"
         width={size}
         height={size}
       />
-    </IconButton>
+    </ButtonBase>
   );
 };
 
